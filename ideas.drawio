@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="UplFS4FlAdCJfRmPtj3t" name="Page-1">
-        <mxGraphModel dx="746" dy="419" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="995" dy="559" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -20,6 +20,9 @@
                         <mxPoint x="830" y="290.23255813953483" as="sourcePoint"/>
                         <Array as="points"/>
                     </mxGeometry>
+                </mxCell>
+                <mxCell id="20" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="5" target="19">
+                    <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="5" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="610" y="290" width="120" height="60" as="geometry"/>
@@ -59,6 +62,14 @@
                 </mxCell>
                 <mxCell id="17" value="file DB" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="840" y="490" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" style="edgeStyle=none;html=1;" edge="1" parent="1" source="19">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="669.9999999999998" y="1210" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="19" value="&lt;h2 data-end=&quot;249&quot; data-start=&quot;228&quot;&gt; &lt;strong data-end=&quot;249&quot; data-start=&quot;234&quot;&gt;Light Theme&lt;/strong&gt;&lt;/h2&gt;&lt;br/&gt;&lt;ul data-end=&quot;789&quot; data-start=&quot;250&quot;&gt;&lt;br/&gt;&lt;li data-end=&quot;346&quot; data-start=&quot;250&quot;&gt;&lt;br/&gt;&lt;p data-end=&quot;346&quot; data-start=&quot;252&quot;&gt;&lt;strong data-end=&quot;273&quot; data-start=&quot;252&quot;&gt;Primary (Accent):&lt;/strong&gt; &lt;code data-end=&quot;283&quot; data-start=&quot;274&quot;&gt;#4A90E2&lt;/code&gt; → Calm blue for focus &amp;amp; trust (used on buttons, highlights).&lt;/p&gt;&lt;br/&gt;&lt;/li&gt;&lt;br/&gt;&lt;li data-end=&quot;445&quot; data-start=&quot;347&quot;&gt;&lt;br/&gt;&lt;p data-end=&quot;445&quot; data-start=&quot;349&quot;&gt;&lt;strong data-end=&quot;363&quot; data-start=&quot;349&quot;&gt;Secondary:&lt;/strong&gt; &lt;code data-end=&quot;373&quot; data-start=&quot;364&quot;&gt;#50E3C2&lt;/code&gt; → Fresh teal for energy &amp;amp; balance (used for progress, active states).&lt;/p&gt;&lt;br/&gt;&lt;/li&gt;&lt;br/&gt;&lt;li data-end=&quot;519&quot; data-start=&quot;446&quot;&gt;&lt;br/&gt;&lt;p data-end=&quot;519&quot; data-start=&quot;448&quot;&gt;&lt;strong data-end=&quot;463&quot; data-start=&quot;448&quot;&gt;Background:&lt;/strong&gt; &lt;code data-end=&quot;473&quot; data-start=&quot;464&quot;&gt;#F7F9FC&lt;/code&gt; → Soft light gray-white (easy on the eyes).&lt;/p&gt;&lt;br/&gt;&lt;/li&gt;&lt;br/&gt;&lt;li data-end=&quot;578&quot; data-start=&quot;520&quot;&gt;&lt;br/&gt;&lt;p data-end=&quot;578&quot; data-start=&quot;522&quot;&gt;&lt;strong data-end=&quot;548&quot; data-start=&quot;522&quot;&gt;Card/Panel Background:&lt;/strong&gt; &lt;code data-end=&quot;558&quot; data-start=&quot;549&quot;&gt;#FFFFFF&lt;/code&gt; with soft shadow.&lt;/p&gt;&lt;br/&gt;&lt;/li&gt;&lt;br/&gt;&lt;li data-end=&quot;643&quot; data-start=&quot;579&quot;&gt;&lt;br/&gt;&lt;p data-end=&quot;643&quot; data-start=&quot;581&quot;&gt;&lt;strong data-end=&quot;598&quot; data-start=&quot;581&quot;&gt;Text Primary:&lt;/strong&gt; &lt;code data-end=&quot;608&quot; data-start=&quot;599&quot;&gt;#2C3E50&lt;/code&gt; → Dark slate (good readability).&lt;/p&gt;&lt;br/&gt;&lt;/li&gt;&lt;br/&gt;&lt;li data-end=&quot;715&quot; data-start=&quot;644&quot;&gt;&lt;br/&gt;&lt;p data-end=&quot;715&quot; data-start=&quot;646&quot;&gt;&lt;strong data-end=&quot;665&quot; data-start=&quot;646&quot;&gt;Text Secondary:&lt;/strong&gt; &lt;code data-end=&quot;675&quot; data-start=&quot;666&quot;&gt;#7F8C8D&lt;/code&gt; → Muted gray for less important info.&lt;/p&gt;&lt;br/&gt;&lt;/li&gt;&lt;br/&gt;&lt;li data-end=&quot;789&quot; data-start=&quot;716&quot;&gt;&lt;br/&gt;&lt;p data-end=&quot;789&quot; data-start=&quot;718&quot;&gt;&lt;strong data-end=&quot;745&quot; data-start=&quot;718&quot;&gt;Warning/Deadline Color:&lt;/strong&gt; &lt;code data-end=&quot;755&quot; data-start=&quot;746&quot;&gt;#E74C3C&lt;/code&gt; → Subtle red for overdue tasks.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="610" y="430" width="120" height="1020" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
