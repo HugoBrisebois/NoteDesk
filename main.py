@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from clock import Timer
+from timer import Timer
 
 
 
@@ -53,13 +53,13 @@ class NoteDesk(tk.Tk):
 
     def show_notes(self):
         self.clear_content()
-        from notes_widget import NotesWidget
+        from notes.notes_widget import NotesWidget
         notes_widget = NotesWidget(self.content)
         notes_widget.pack(pady=20, padx=20, fill='both', expand=True)
 
     def show_timer(self):
         self.clear_content()
-        from clock import Timer
+        from timer import Timer
         self.timer_widget = Timer(self.content)
         self.timer_widget.pack(pady=20)
 
