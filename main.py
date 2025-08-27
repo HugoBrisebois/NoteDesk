@@ -1,12 +1,13 @@
 import tkinter as tk
 from tkinter import ttk
-
+from clock import Timer
 
 
 
 class SimpleApp(tk.Tk):
     def __init__(self):
         super().__init__()
+        # All Variables
 
         self.title("Simple Tkinter App")
         self.geometry("650x600")
@@ -38,11 +39,17 @@ class SimpleApp(tk.Tk):
         
         # Prevents frame from shrinking to fit content
             content.pack_propagate(False)
+            
         
         
         
+        # Load all of the functions
         Draw_taskbar()
         main_window()
+        
+        
+        
+        
 if __name__ == "__main__":
     app = SimpleApp()
     app.mainloop()
