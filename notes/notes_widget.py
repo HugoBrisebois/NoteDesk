@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from notes_db import NotesDatabase
+from notes.notes_db import NotesDatabase
 
 class NotesWidget(ttk.Frame):
     def __init__(self, parent):
