@@ -4,7 +4,7 @@ from clock import Timer
 
 
 
-class SimpleApp(tk.Tk):
+class NoteDesk(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Simple Tkinter App")
@@ -48,13 +48,14 @@ class SimpleApp(tk.Tk):
 
     def show_tasks(self):
         self.clear_content()
-        label = tk.Label(self.content, text="Tasks section coming soon.", font=("Arial", 16))
+        label = tk.Label(self.content, text="Tasks section coming soon.", font=("Arial", 16), justify="center")
         label.pack(pady=40)
 
     def show_notes(self):
         self.clear_content()
-        label = tk.Label(self.content, text="Notes section coming soon.", font=("Arial", 16))
-        label.pack(pady=40)
+        from notes_widget import NotesWidget
+        notes_widget = NotesWidget(self.content)
+        notes_widget.pack(pady=20, padx=20, fill='both', expand=True)
 
     def show_timer(self):
         self.clear_content()
@@ -64,6 +65,6 @@ class SimpleApp(tk.Tk):
 
 
 if __name__ == "__main__":
-    app = SimpleApp()
+    app = NoteDesk()
     app.mainloop()
 
