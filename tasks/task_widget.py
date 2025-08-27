@@ -2,12 +2,63 @@ import tkinter as tk
 from tkinter import ttk
 from tkcalendar import DateEntry
 from .tasks import Task, TaskManager
+from datetime import datetime
 
 class TaskWidget(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
         self.task_manager = TaskManager()
-        self.setup_ui()
+        self.tasks = []
+        
+        # Control panel for filtering and sorting
+        self.control_frame = ttk.Frame(self)
+        self.control_frame.pack(fill='x', pady=(0, 10))
+        
+        # Filter controls
+        self.filter_var = tk.StringVar(value="all")
+        ttk.Label(self.control_frame, text="Filter:").pack(side='left', padx=5)
+        self.filter_combo = ttk.Combobox(
+            self.control_frame, 
+            values=["all", "completed", "pending"],
+            textvariable=self.filter_var,
+            state="readonly",
+            width=10
+        )
+        self.filter_combo.pack(side='left', padx=5)
+        self.filter_combo.bind('<<ComboboxSelected>>', self.apply_filter)
+        
+        # Sort controls
+        self.sort_var = tk.StringVar(value="priority")  # Changed from "date" to "priority"
+        ttk.Label(self.control_frame, text="Sort by:").pack(side='left', padx=5)
+        self.sort_combo = ttk.Combobox(
+            self.control_frame,
+            values=["date", "priority", "name"],
+            textvariable=self.sort_var,
+            state="readonly",
+            width=10
+        )
+        self.sort_combo.pack(side='left', padx=5)
+        self.sort_combo.bind('<<ComboboxSelected>>', self.apply_sort)
+        
+        # Task list
+        self.task_frame = ttk.Frame(self)
+        self.task_frame.pack(fill='both', expand=True)
+        
+        # Scrollable task list
+        self.canvas = tk.Canvas(self.task_frame)
+        self.scrollbar = ttk.Scrollbar(self.task_frame, orient="vertical", command=self.canvas.yview)
+        self.scrollable_frame = ttk.Frame(self.canvas)
+        
+        self.canvas.configure(yscrollcommand=self.scrollbar.set)
+        
+        self.canvas.pack(side="left", fill="both", expand=True)
+        self.scrollbar.pack(side="right", fill="y")
+        
+        self.canvas_frame = self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
+        
+        # Bind resize event
+        self.scrollable_frame.bind("<Configure>", self.on_frame_configure)
+        self.canvas.bind("<Configure>", self.on_canvas_configure)
 
     def setup_ui(self):
         # Add Task Form
@@ -57,10 +108,14 @@ class TaskWidget(ttk.Frame):
         self.tree.heading("Status", text="Status")
         self.tree.pack(fill="both", expand=True)
 
-        
-
         # Load existing tasks
         self.refresh_task_list()
+
+    def on_frame_configure(self, event=None):
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+
+    def on_canvas_configure(self, event):
+        self.canvas.itemconfig(self.canvas_frame, width=event.width)
 
     def add_task(self):
         task = Task(
@@ -74,10 +129,27 @@ class TaskWidget(ttk.Frame):
         self.clear_form()
 
     def refresh_task_list(self):
+        # Clear existing items
         for item in self.tree.get_children():
             self.tree.delete(item)
         
-        for task in self.task_manager.get_all_tasks():
+        # Get all tasks and sort them
+        tasks = self.task_manager.get_all_tasks()
+        
+        # Define priority order
+        priority_order = {"High": 1, "Medium": 2, "Low": 3}
+        
+        # Sort tasks by priority and status
+        sorted_tasks = sorted(tasks, 
+            key=lambda x: (
+                0 if x.status == "Pending" else 1,  # Pending tasks first
+                priority_order.get(x.priority, 4),   # Then by priority
+                x.due_date if x.due_date else datetime.max  # Then by due date
+            )
+        )
+        
+        # Insert sorted tasks into the tree
+        for task in sorted_tasks:
             self.tree.insert("", "end", values=(
                 task.title,
                 task.due_date.strftime("%Y-%m-%d") if task.due_date else "",
@@ -104,4 +176,30 @@ class TaskWidget(ttk.Frame):
         
         # Refresh the display
         self.refresh_task_list()
+
+    def apply_filter(self, event=None):
+        filter_type = self.filter_var.get()
+        for task in self.tasks:
+            if filter_type == "all":
+                task.frame.pack(fill='x', pady=2)
+            elif filter_type == "completed" and task.completed:
+                task.frame.pack(fill='x', pady=2)
+            elif filter_type == "pending" and not task.completed:
+                task.frame.pack(fill='x', pady=2)
+            else:
+                task.frame.pack_forget()
+
+    def apply_sort(self, event=None):
+        sort_by = self.sort_var.get()
+        if sort_by == "date":
+            self.tasks.sort(key=lambda x: x.creation_date)
+        elif sort_by == "priority":
+            self.tasks.sort(key=lambda x: x.priority, reverse=True)
+        elif sort_by == "name":
+            self.tasks.sort(key=lambda x: x.description.lower())
+        
+        # Repack all visible tasks in the new order
+        for task in self.tasks:
+            task.frame.pack_forget()
+        self.apply_filter()
 

@@ -14,18 +14,20 @@ class NotesDatabase:
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 title TEXT NOT NULL,
                 content TEXT,
+                category TEXT,
+                task_id INTEGER,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         ''')
         self.conn.commit()
 
-    def add_note(self, title, content):
+    def add_note(self, title, content, category=None, task_id=None):
         cursor = self.conn.cursor()
         cursor.execute('''
-            INSERT INTO notes (title, content)
-            VALUES (?, ?)
-        ''', (title, content))
+            INSERT INTO notes (title, content, category, task_id)
+            VALUES (?, ?, ?, ?)
+        ''', (title, content, category, task_id))
         self.conn.commit()
         return cursor.lastrowid
 

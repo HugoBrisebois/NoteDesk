@@ -2,12 +2,13 @@ import datetime as time
 import json
 
 class Task:
-    def __init__(self, title, description="", due_date=None, priority="Medium", status="Pending"):
+    def __init__(self, title, description="", due_date=None, priority="Medium", status="Pending", categories=None):
         self.title = title
         self.description = description
         self.due_date = due_date
         self.priority = priority
         self.status = status
+        self.categories = categories or []
         self.created_at = time.datetime.now()
 
     def to_dict(self):
@@ -17,6 +18,7 @@ class Task:
             "due_date": self.due_date.isoformat() if self.due_date else None,
             "priority": self.priority,
             "status": self.status,
+            "categories": self.categories,
             "created_at": self.created_at.isoformat()
         }
 

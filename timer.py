@@ -1,11 +1,16 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+from timer_stats import TimerStats
 
 class Timer(ttk.Frame):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, task_manager=None):
         super().__init__(parent)
         self.timer_running = False
         self.time_left = 0
+        self.task_manager = task_manager
+        self.current_task = None
+        self.stats = TimerStats()
+        self.task_var = tk.StringVar()  # Initialize task_var for all instances
 
         # Input frame
         input_frame = ttk.Frame(self)
@@ -32,6 +37,21 @@ class Timer(ttk.Frame):
         self.progress = ttk.Progressbar(self, length=200, mode='determinate')
         self.progress.pack(pady=10)
 
+        # Task selection
+        if self.task_manager:
+            task_frame = ttk.Frame(self)
+            task_frame.pack(pady=10)
+            tk.Label(task_frame, text="Link to task:").pack(side='left')
+            self.task_var = tk.StringVar()
+            self.task_combo = ttk.Combobox(task_frame, textvariable=self.task_var)
+            self.task_combo.pack(side='left', padx=5)
+            self.update_task_list()
+
+        # Stats display
+        self.stats_var = tk.StringVar()
+        self.update_stats()
+        tk.Label(self, textvariable=self.stats_var).pack(pady=5)
+
         # Buttons
         button_frame = ttk.Frame(self)
         button_frame.pack(pady=10)
@@ -47,6 +67,27 @@ class Timer(ttk.Frame):
         self.stop_btn = tk.Button(button_frame, text="Stop", 
                                  command=self.stop_timer)
         self.stop_btn.pack(side='left', padx=5)
+
+    def update_task_list(self):
+        if not self.task_manager:
+            return
+        tasks = self.task_manager.get_all_tasks()
+        self.task_combo['values'] = [f"{i}: {task.title}" for i, task in enumerate(tasks)]
+
+    def get_selected_task_id(self):
+        if not hasattr(self, 'task_var') or not self.task_var.get():
+            return None
+        try:
+            task_value = self.task_var.get()
+            if ':' not in task_value:
+                return None
+            return int(task_value.split(':')[0])
+        except:
+            return None
+
+    def update_stats(self):
+        stats = self.stats.get_daily_stats()
+        self.stats_var.set(f"Today's focus time: {stats['total_duration']}")
 
     def set_timer(self):
         try:
@@ -65,6 +106,12 @@ class Timer(ttk.Frame):
             self.countdown()
 
     def stop_timer(self):
+        if self.timer_running:
+            initial_time = int(self.minutes_entry.get()) * 60 + int(self.seconds_entry.get())
+            elapsed_time = initial_time - self.time_left
+            task_id = self.get_selected_task_id()
+            self.stats.record_session(elapsed_time, task_id)
+            self.update_stats()
         self.timer_running = False
 
     def countdown(self):
