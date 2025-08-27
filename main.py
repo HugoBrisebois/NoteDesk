@@ -43,7 +43,7 @@ class SimpleApp(tk.Tk):
 
     def show_home(self):
         self.clear_content()
-        label = tk.Label(self.content, text="Welcome to the Productivity App!", font=("Arial", 18))
+        label = tk.Label(self.content, text="Welcome to the Productivity App!", font=("Arial", 18), justify="center")
         label.pack(pady=40)
 
     def show_tasks(self):
