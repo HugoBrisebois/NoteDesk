@@ -48,8 +48,9 @@ class NoteDesk(tk.Tk):
 
     def show_tasks(self):
         self.clear_content()
-        label = tk.Label(self.content, text="Tasks section coming soon.", font=("Arial", 16), justify="center")
-        label.pack(pady=40)
+        from tasks.task_widget import TaskWidget
+        tasks_widget = TaskWidget(self.content)
+        tasks_widget.pack(pady=20, padx=20, fill='both', expand=True)
 
     def show_notes(self):
         self.clear_content()

@@ -34,6 +34,11 @@ class TaskManager:
         self.tasks.remove(task)
         self.save_tasks()
 
+    def delete_task(self, index):
+        if 0 <= index < len(self.tasks):
+            self.tasks.pop(index)
+            self.save_tasks()
+
     def get_all_tasks(self):
         return self.tasks
 

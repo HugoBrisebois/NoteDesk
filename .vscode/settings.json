@@ -1,9 +1,11 @@
 {
     "cSpell.words": [
+        "columnspan",
         "lastrowid",
         "mxfile",
         "padx",
         "pady",
-        "textvariable"
+        "textvariable",
+        "tkcalendar"
     ]
 }
