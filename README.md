@@ -6,4 +6,4 @@ NoteDesk is a simple to use clean productivy app that will help you study, focus
 
 - intergrated timer
 - note taking
-- project traker
+- task manager
