@@ -3,7 +3,7 @@ from datetime import datetime
 
 class NotesDatabase:
     def __init__(self):
-        self.db_file = "notes.db"
+        self.db_file = "notes/notes.db"
         self.conn = sqlite3.connect(self.db_file)
         self.create_tables()
 
@@ -14,8 +14,6 @@ class NotesDatabase:
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 title TEXT NOT NULL,
                 content TEXT,
-                category TEXT,
-                task_id INTEGER,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
@@ -25,9 +23,9 @@ class NotesDatabase:
     def add_note(self, title, content, category=None, task_id=None):
         cursor = self.conn.cursor()
         cursor.execute('''
-            INSERT INTO notes (title, content, category, task_id)
-            VALUES (?, ?, ?, ?)
-        ''', (title, content, category, task_id))
+            INSERT INTO notes (title, content)
+            VALUES (?, ?)
+        ''', (title, content))
         self.conn.commit()
         return cursor.lastrowid
 

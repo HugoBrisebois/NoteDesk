@@ -2,14 +2,13 @@ import datetime as time
 import json
 
 class Task:
-    def __init__(self, title, description="", due_date=None, priority="Medium", status="Pending", categories=None):
+    def __init__(self, title, description="", due_date=None, priority="Medium", status="Pending"):
         self.title = title
         self.description = description
         self.due_date = due_date
         self.priority = priority
         self.status = status
-        self.categories = categories or []
-        self.created_at = time.datetime.now()
+
 
     def to_dict(self):
         return {
@@ -18,14 +17,13 @@ class Task:
             "due_date": self.due_date.isoformat() if self.due_date else None,
             "priority": self.priority,
             "status": self.status,
-            "categories": self.categories,
             "created_at": self.created_at.isoformat()
         }
 
 class TaskManager:
     def __init__(self):
         self.tasks = []
-        self.filename = "tasks.json"
+        self.filename = "tasks.tasks.json"
         self.load_tasks()
 
     def add_task(self, task):
@@ -39,6 +37,18 @@ class TaskManager:
     def delete_task(self, index):
         if 0 <= index < len(self.tasks):
             self.tasks.pop(index)
+            self.save_tasks()
+
+    def update_task_status(self, index, status):
+        if 0 <= index < len(self.tasks):
+            self.tasks[index].status = status
+            self.save_tasks()
+
+    def update_task(self, index, **kwargs):
+        if 0 <= index < len(self.tasks):
+            task = self.tasks[index]
+            for key, value in kwargs.items():
+                setattr(task, key, value)
             self.save_tasks()
 
     def get_all_tasks(self):

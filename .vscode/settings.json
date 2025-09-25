@@ -7,8 +7,10 @@
         "padx",
         "pady",
         "productivy",
+        "scrollregion",
         "textvariable",
         "tkcalendar",
-        "traker"
+        "traker",
+        "yscrollcommand"
     ]
 }

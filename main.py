@@ -46,6 +46,33 @@ class NoteDesk(tk.Tk):
         label = tk.Label(self.content, text="Welcome to the Productivity App!", font=("Arial", 18), justify="center")
         label.pack(pady=40)
 
+    def show_productivity(self):
+        self.clear_content()
+        
+        # Create a paned window to allow resizable split view
+        paned = ttk.PanedWindow(self.content, orient=tk.VERTICAL)
+        paned.pack(fill='both', expand=True, padx=10, pady=10)
+        
+        # Tasks section at the top
+        tasks_frame = ttk.LabelFrame(paned, text="Tasks")
+        from tasks.task_widget import TaskWidget
+        tasks_widget = TaskWidget(tasks_frame)
+        tasks_widget.pack(pady=5, padx=5, fill='both', expand=True)
+        paned.add(tasks_frame)
+        
+        # Notes section at the bottom
+        notes_frame = ttk.LabelFrame(paned, text="Notes")
+        from notes.notes_widget import NotesWidget
+        notes_widget = NotesWidget(notes_frame)
+        notes_widget.pack(pady=5, padx=5, fill='both', expand=True)
+        paned.add(notes_frame)
+
+    def show_timer(self):
+        self.clear_content()
+        from timer import Timer
+        self.timer_widget = Timer(self.content)
+        self.timer_widget.pack(pady=20)
+
     def show_tasks(self):
         self.clear_content()
         from tasks.task_widget import TaskWidget
@@ -57,12 +84,6 @@ class NoteDesk(tk.Tk):
         from notes.notes_widget import NotesWidget
         notes_widget = NotesWidget(self.content)
         notes_widget.pack(pady=20, padx=20, fill='both', expand=True)
-
-    def show_timer(self):
-        self.clear_content()
-        from timer import Timer
-        self.timer_widget = Timer(self.content)
-        self.timer_widget.pack(pady=20)
 
 
 if __name__ == "__main__":
